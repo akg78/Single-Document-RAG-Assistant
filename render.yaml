@@ -2,11 +2,15 @@ services:
   - type: web
     name: single-document-rag-backend
     runtime: docker
-    plan: starter
+    plan: standard
     region: oregon
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     healthCheckPath: /health
+    disk:
+      name: rag-data
+      mountPath: /app/data
+      sizeGB: 1
     envVars:
       - key: OPENAI_API_KEY
         sync: false
