@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+
+# Local build output
+.next
+
+# Env files (set in Vercel dashboard instead)
+.env
+.env.local
+.env.*.local
+
+# Debug
+npm-debug.log*
