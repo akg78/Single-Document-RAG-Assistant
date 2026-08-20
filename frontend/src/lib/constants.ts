@@ -1,0 +1,3 @@
+export const VOICE_SILENCE_MS = 3000;
+
+export const VOICE_SILENCE_SECONDS = VOICE_SILENCE_MS / 1000;

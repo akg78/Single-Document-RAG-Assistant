@@ -1,0 +1,32 @@
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+backend/.venv/
+backend/venv/
+backend/.env
+backend/data/uploads/*
+!backend/data/uploads/.gitkeep
+backend/data/faiss_index/*
+!backend/data/faiss_index/.gitkeep
+backend/data/eval_logs/*.jsonl
+backend/data/eval_logs/*.json
+!backend/data/eval_logs/.gitkeep
+
+# Node / Next
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/npm-debug.log*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Models cache (optional local)
+.cache/
