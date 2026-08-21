@@ -1,12 +1,14 @@
 # Single-Document RAG Assistant
 
-**Problem Statement option:** Single-Document RAG Assistant (upload one PDF → grounded Q&A with citations and RAGAS logging)
+**Submission type:** Repository (local setup required — run backend + frontend on your machine)
 
-**Live demo:** [https://single-document-rag-assistant.vercel.app](https://single-document-rag-assistant.vercel.app)
+**Problem Statement option:** Single-Document RAG Assistant (upload one PDF → grounded Q&A with citations and RAGAS logging)
 
 **Repository:** [https://github.com/akg78/Single-Document-RAG-Assistant](https://github.com/akg78/Single-Document-RAG-Assistant) (public)
 
-> **Local requirements (read first):** Python **3.11+**, Node.js **20+**, and an **OpenAI-compatible API key** (`backend/.env`). First run downloads **~500 MB+** of embedding/reranker model weights. **Docker Compose is optional** (see [§ Setup → Docker](#3-docker-optional)). For free backend hosting, see [§ Hosted deploy](#hosted-deploy).
+**Frontend preview (UI only):** [https://single-document-rag-assistant.vercel.app](https://single-document-rag-assistant.vercel.app) — *upload and chat require the local backend; see [Setup](#setup-local) below.*
+
+> **Local requirements (read first):** Python **3.11+**, Node.js **20+**, and an **OpenAI-compatible API key** (`backend/.env`). First run downloads **~500 MB+** of embedding/reranker model weights. **Docker Compose is optional** (see [§ Setup → Docker](#3-docker-optional)). To run online later, see [§ Optional: deploy online](#optional-deploy-online).
 
 Upload one PDF, ask questions by text or voice, and get answers grounded in that document with cited source chunks (page + snippet). Every query logs faithfulness, answer relevancy, and context precision.
 
@@ -82,6 +84,8 @@ README.md
 
 ## Setup (local)
 
+Follow these steps on a **fresh clone** to verify the project (repo-only submission).
+
 ### Prerequisites
 
 - Python **3.11+** (verified on 3.14 with the pinned wheels in `requirements.txt`)
@@ -128,6 +132,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). Upload a PDF and ask a question — cited sources appear under each answer.
+
+**Repo-only verification:** fresh clone → create venv → `pip install` → copy `.env.example` → start backend → start frontend → upload PDF → ask question → confirm sources and RAGAS log line in `backend/data/eval_logs/ragas_metrics.jsonl`.
 
 ### 3. Docker (optional)
 
@@ -226,16 +232,18 @@ Edit `EVAL_SET` in `scripts/run_eval.py` with 8–15 question / expected-answer 
 
 ---
 
-## Hosted deploy
+## Optional: deploy online
+
+This submission is **repository-based**; the steps below are optional if you want a public demo later.
 
 | Component | URL / host |
 | --- | --- |
-| **Frontend** | [https://single-document-rag-assistant.vercel.app](https://single-document-rag-assistant.vercel.app) (Vercel) |
-| **Backend** | FastAPI + ML stack — deploy via [Oracle Cloud free VM](deploy/oracle/README.md) (recommended, $0) or Render Standard |
+| **Frontend** | [https://single-document-rag-assistant.vercel.app](https://single-document-rag-assistant.vercel.app) (Vercel — UI only until backend is deployed) |
+| **Backend** | FastAPI + ML stack — [Oracle Cloud free VM](deploy/oracle/README.md) (recommended, $0) or Render Standard |
 
-**Before submission:** open the live URL in an **incognito window**, upload a PDF, ask a question, and confirm cited sources appear.
+A fully working hosted demo also requires a **deployed backend** with an **HTTPS** URL (browsers block HTTP API calls from the Vercel site).
 
-### Connect frontend to backend
+### Connect frontend to backend (optional)
 
 1. Deploy the backend and note its **HTTPS** public URL (plain `http://` is blocked by the browser from the Vercel site).
 2. In [Vercel → Environment Variables](https://vercel.com/akg78s-projects/single-document-rag-assistant/settings/environment-variables), set:
