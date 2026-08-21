@@ -1,5 +1,13 @@
 # Single-Document RAG Assistant
 
+**Problem Statement option:** Single-Document RAG Assistant (upload one PDF → grounded Q&A with citations and RAGAS logging)
+
+**Live demo:** [https://single-document-rag-assistant.vercel.app](https://single-document-rag-assistant.vercel.app)
+
+**Repository:** [https://github.com/akg78/Single-Document-RAG-Assistant](https://github.com/akg78/Single-Document-RAG-Assistant) (public)
+
+> **Local requirements (read first):** Python **3.11+**, Node.js **20+**, and an **OpenAI-compatible API key** (`backend/.env`). First run downloads **~500 MB+** of embedding/reranker model weights. **Docker Compose is optional** (see [§ Setup → Docker](#3-docker-optional)). For free backend hosting, see [§ Hosted deploy](#hosted-deploy).
+
 Upload one PDF, ask questions by text or voice, and get answers grounded in that document with cited source chunks (page + snippet). Every query logs faithfulness, answer relevancy, and context precision.
 
 ---
@@ -218,14 +226,24 @@ Edit `EVAL_SET` in `scripts/run_eval.py` with 8–15 question / expected-answer 
 
 ---
 
-## Hosted deploy (outline)
+## Hosted deploy
 
-Follow your course **Vibe Coding Helper Doc** for the exact host. Typical pattern:
+| Component | URL / host |
+| --- | --- |
+| **Frontend** | [https://single-document-rag-assistant.vercel.app](https://single-document-rag-assistant.vercel.app) (Vercel) |
+| **Backend** | FastAPI + ML stack — deploy via [Oracle Cloud free VM](deploy/oracle/README.md) (recommended, $0) or Render Standard |
 
-1. Deploy **backend** (Railway / Render / Fly) with `OPENAI_API_KEY`, expose port 8000.
-2. Deploy **frontend** (Vercel) with `NEXT_PUBLIC_API_URL` pointing at the public API URL.
-3. Set backend `CORS_ORIGINS` to your Vercel domain.
-4. Re-test the **deployed** link end-to-end (upload → ask → expand sources) before submission.
+**Before submission:** open the live URL in an **incognito window**, upload a PDF, ask a question, and confirm cited sources appear.
+
+### Connect frontend to backend
+
+1. Deploy the backend and note its **HTTPS** public URL (plain `http://` is blocked by the browser from the Vercel site).
+2. In [Vercel → Environment Variables](https://vercel.com/akg78s-projects/single-document-rag-assistant/settings/environment-variables), set:
+   - `NEXT_PUBLIC_API_URL` = your backend HTTPS URL (no trailing slash)
+3. Redeploy the frontend.
+4. Set backend `CORS_ORIGINS` to include `https://single-document-rag-assistant.vercel.app`.
+
+**Quick local demo tunnel (Windows/macOS/Linux):** while the backend runs on port 8000, use Cloudflare quick tunnel — see `deploy/oracle/tunnel.sh` or run `cloudflared tunnel --url http://127.0.0.1:8000` and paste the `https://*.trycloudflare.com` URL into Vercel.
 
 ---
 
