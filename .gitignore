@@ -6,6 +6,7 @@
 backend/.venv/
 backend/venv/
 backend/.env
+deploy/oracle/.env
 backend/data/uploads/*
 !backend/data/uploads/.gitkeep
 backend/data/faiss_index/*
